@@ -424,6 +424,13 @@
             botMessageDiv.className = 'chat-message bot';
             botMessageDiv.innerHTML = marked.parse(Array.isArray(responseData) ? responseData[0].output : responseData.output);
             messagesContainer.appendChild(botMessageDiv);
+            
+            // Füge target="_blank" zu allen Links hinzu
+            botMessageDiv.querySelectorAll('a').forEach(a => {
+              a.setAttribute('target', '_blank');
+              a.setAttribute('rel', 'noopener noreferrer');
+            });
+            messagesContainer.appendChild(botMessageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         } catch (error) {
             console.error('Error:', error);
@@ -462,6 +469,12 @@
             botMessageDiv.className = 'chat-message bot';
             botMessageDiv.innerHTML = marked.parse(Array.isArray(data) ? data[0].output : data.output);
             messagesContainer.appendChild(botMessageDiv);
+            
+            // Füge target="_blank" zu allen Links hinzu
+            botMessageDiv.querySelectorAll('a').forEach(a => {
+              a.setAttribute('target', '_blank');
+              a.setAttribute('rel', 'noopener noreferrer');
+            });
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         } catch (error) {
             console.error('Error:', error);
