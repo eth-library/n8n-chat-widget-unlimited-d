@@ -66,7 +66,7 @@ In your HTML page, configure/change webhook URL, branding and style settings.
 ### 3. Done!
 Once embedded, the chat widget will connect to your configured n8n webhook and respond with formatted messages.
 
-### Notes
+## Notes
 
 - This widget is designed to be served as a static asset (e.g. GitHub Pages, ETH web hosting, etc.)
 - No backend required – logic is delegated to n8n workflows
