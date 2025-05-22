@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Unlimited ChatBot D</title>
+</head>
+<body>
+<!-- Widget Configuration -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  window.ChatWidgetConfig = {
+    webhook: {
+      url: 'https://.../chat',
+      route: 'general'
+    },
+    branding: {
+      logo: 'https://...',
+      name: 'SLSP Manuals', // Your company name
+      welcomeText: 'Hallo 👋, ich bin der Assistenzbot für den Confluence-Bereich SLSP Manuals.', //Welcome message
+      responseTimeText: 'Dieser Bot kann Fehler machen. <a href="https://library.ethz.ch/footer/datenschutz.html" target="_blank">Datenschutz</a>' //Response time message
+    },
+    style: {
+      primaryColor: '#00596D', //Primary color
+      secondaryColor: '#007894', //Secondary color
+      position: 'right', //Position of the widget (left or right)
+      backgroundColor: '#ffffff', //Background color of the chat widget
+      fontColor: '#333333' //Text color for messages and interface
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/gh/eth-library/n8n-chat-widget-unlimited-d/chat-widget.js"></script>
+<!-- Widget Script -->   
+</body>
+</html>
