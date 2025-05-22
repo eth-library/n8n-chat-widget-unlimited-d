@@ -1,4 +1,4 @@
-# n8n Chat Widget for Unlimited D
+# n8n Chat Widget for Unlimited (German language version)
 
 This is a lightweight, embeddable chat widget that connects to an `n8n` chat webhook endpoint. It has been customized by ETH Library for integration into internal services such as **Unlimited D** (Confluence-based). The code is based on https://github.com/WayneSimpson/n8n-chatbot-template and is an alternative to the official n8n widget (https://www.npmjs.com/package/@n8n/chat). Thanks to Wayne Simpson!
 
