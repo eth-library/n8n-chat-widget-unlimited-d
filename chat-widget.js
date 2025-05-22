@@ -296,8 +296,8 @@
             welcomeText: '',
             responseTimeText: '',
             poweredBy: {
-                text: 'An AILA service provided by DBS',
-                link: 'https://unlimited.ethz.ch/spaces/AILA/overview'
+                text: 'AI automation service provided by ETH Library',
+                link: 'https://library.ethz.ch/'
             }
         },
         style: {
