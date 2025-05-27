@@ -513,4 +513,111 @@
             chatContainer.classList.remove('open');
         });
     });
+    // Neue Funktion: Ladeanimation anzeigen
+    function showTypingIndicator() {
+        if (messagesContainer.querySelector('.chat-message.bot.typing')) return;
+
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'chat-message bot typing';
+        typingDiv.innerHTML = `
+            <div class="dot-loader">
+              <span></span><span></span><span></span>
+            </div>
+        `;
+        messagesContainer.appendChild(typingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // Neue Funktion: Ladeanimation entfernen
+    function removeTypingIndicator() {
+        const typingDiv = messagesContainer.querySelector('.chat-message.bot.typing');
+        if (typingDiv) typingDiv.remove();
+    }
+
+    async function sendMessage(message) {
+        const messageData = {
+            action: "sendMessage",
+            sessionId: currentSessionId,
+            route: config.webhook.route,
+            chatInput: message,
+            metadata: {
+                userId: ""
+            }
+        };
+
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.className = 'chat-message user';
+        userMessageDiv.textContent = message;
+        messagesContainer.appendChild(userMessageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // Zeige Ladeanimation an
+        showTypingIndicator();
+
+        try {
+            const response = await fetch(config.webhook.url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(messageData)
+            });
+
+            const data = await response.json();
+
+            // Ladeanimation entfernen
+            removeTypingIndicator();
+
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.className = 'chat-message bot';
+            botMessageDiv.innerHTML = marked.parse(Array.isArray(data) ? data[0].output : data.output);
+            messagesContainer.appendChild(botMessageDiv);
+
+            botMessageDiv.querySelectorAll('a').forEach(a => {
+              a.setAttribute('target', '_blank');
+              a.setAttribute('rel', 'noopener noreferrer');
+            });
+
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        } catch (error) {
+            console.error('Error:', error);
+            removeTypingIndicator();
+        }
+    }
+
+    // ... bestehende Events, neue Zeile bleibt unberührt
+
+    // Zusätzlicher Stil für Ladeanimation (kann in styleSheet oder CSS-Datei ergänzt werden)
+    const loaderStyle = `
+      .dot-loader {
+        display: flex;
+        gap: 6px;
+        padding: 10px;
+        padding-left: 16px;
+      }
+
+      .dot-loader span {
+        width: 8px;
+        height: 8px;
+        background-color: var(--chat--color-secondary);
+        border-radius: 50%;
+        animation: dot-blink 1.2s infinite ease-in-out both;
+      }
+
+      .dot-loader span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .dot-loader span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes dot-blink {
+        0%, 80%, 100% { transform: scale(0); }
+        40% { transform: scale(1); }
+      }
+    `;
+    const loaderStyleSheet = document.createElement('style');
+    loaderStyleSheet.textContent = loaderStyle;
+    document.head.appendChild(loaderStyleSheet);    
 })();
